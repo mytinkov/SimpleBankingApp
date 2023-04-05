@@ -1,5 +1,7 @@
 package com.skypro.bankingapp.model;
 
+import com.skypro.bankingapp.dto.AccountDTO;
+
 import java.util.Objects;
 
 public class Account {

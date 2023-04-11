@@ -1,0 +1,23 @@
+GET localhost:8080/user/
+###
+POST localhost:8080/user
+Content-Type: application/json
+
+{
+  "firstName": "first",
+  "lastName": "test",
+  "username": "firsttest",
+  "password": "password",
+  "repeatPassword": "password"
+}
+###
+GET localhost:8080/account/?username=firsttest&account=584c7b1b-4d62-4de2-bdba-762c0906de82
+###
+POST localhost:8080/account/deposit
+Content-Type: application/json
+
+{
+  "username": "firsttest",
+  "account": "584c7b1b-4d62-4de2-bdba-762c0906de82",
+  "amount": 200.0
+}

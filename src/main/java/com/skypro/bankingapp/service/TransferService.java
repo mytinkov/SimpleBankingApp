@@ -15,25 +15,22 @@ public class TransferService {
     public void transferMoney(TransferRequest transferRequest) {
         if (accountService
                 .getAccount(transferRequest.userTo(), transferRequest.accountTo())
-                .equals(accountService
-                        .getAccount(transferRequest.userFrom(), transferRequest.accountFrom()))) {
-
+                .equals(
+                        accountService.getAccount(
+                                transferRequest.userFrom(), transferRequest.accountFrom()))) {
             accountService.changeBalance(
                     transferRequest.userFrom(),
                     transferRequest.accountFrom(),
                     Operation.WITHDRAW,
                     transferRequest.amount());
+
             accountService.changeBalance(
                     transferRequest.userTo(),
                     transferRequest.accountTo(),
                     Operation.DEPOSIT,
-                    transferRequest.amount()
-            );
-        }
-        else {
+                    transferRequest.amount());
+        } else {
             throw new InvalidTransferException();
         }
     }
-
-
 }

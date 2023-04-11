@@ -7,12 +7,16 @@ import com.skypro.bankingapp.service.AccountService;
 import com.skypro.bankingapp.service.Operation;
 import com.skypro.bankingapp.service.TransferService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/account")
 public class AccountController {
-
     private final AccountService accountService;
     private final TransferService transferService;
 
@@ -22,18 +26,17 @@ public class AccountController {
     }
 
     @GetMapping("/")
-    public AccountDTO getBalance(@RequestParam("username") String username, @RequestParam("account") String account) {
+    public AccountDTO getBalance(
+            @RequestParam("username") String username, @RequestParam("account") String account) {
         return accountService.getAccount(username, account);
     }
 
-    //Метод перевода
     @PostMapping("/transfer")
     public ResponseEntity<?> transferMoney(@RequestBody TransferRequest transferRequest) {
         transferService.transferMoney(transferRequest);
         return ResponseEntity.noContent().build();
     }
 
-    //Пополнение аккаунта
     @PostMapping("/deposit")
     public ResponseEntity<?> depositMoney(@RequestBody BalanceChangeRequest balanceChangeRequest) {
         accountService.changeBalance(
